@@ -1,0 +1,16 @@
+Add the following to the IdentityService\Startup class ConfigureServices method:
+********************************************************************************
+
+
+services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(_configuration["ConnectionString"]);
+});
+
+services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+
+
+// Then fix the missing using statements

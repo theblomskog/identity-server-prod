@@ -1,0 +1,40 @@
+If you are running in Visual Studio 2019 / .NET 5 then replace the CreateHostBuilder method with:
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    var builtConfig = config.Build();
+
+                    string vaultUrl = builtConfig["Vault:Url"];
+                    string clientId = builtConfig["Vault:ClientId"];
+                    string secret = builtConfig["Vault:clientSecret"];
+                    string tenantId = builtConfig["Vault:TenantId"];
+
+                config.AddAzureKeyVault(new Uri(vaultUrl), new ClientSecretCredential(tenantId, clientId, secret));
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+				
+				
+
+If you are running Visual Studio 2022, then add the following after the CreateBuilder method call:
+
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.ConfigureAppConfiguration((context, config) =>
+{
+    var builtConfig = config.Build();
+
+    string vaultUrl = builtConfig["Vault:Url"];
+    string clientId = builtConfig["Vault:ClientId"];
+    string secret = builtConfig["Vault:clientSecret"];
+    string tenantId = builtConfig["Vault:TenantId"];
+
+    var client = new ClientSecretCredential(tenantId, clientId, secret);
+
+    config.AddAzureKeyVault(new Uri(vaultUrl), client);
+});

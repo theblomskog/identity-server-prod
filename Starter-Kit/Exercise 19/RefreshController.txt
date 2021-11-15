@@ -1,0 +1,45 @@
+1. Comment out the existing GetData method in your RefreshController class
+##########################################################################
+
+
+2. Then add this code to the class:
+###################################
+
+        public async Task<IActionResult> GetData()
+        {
+            try
+            {
+                int tokenExpiresInSec = CalculateWhenAccessTokenExpires();
+
+                HttpClient? client = _httpClientFactory.CreateClient("paymentapi");
+
+                var content = await client.GetStringAsync("/payments/get");
+
+                var json = JObject.Parse(content);
+                json.TryGetValue("name", out var value);
+                string name = value.ToString();
+                string str = "Got Data " + name + " (Access token exires in " + ((int)tokenExpiresInSec).ToString() + " sec)";
+
+                return Content("{ \"name\":" + "\"" + str + "\" }");
+            }
+            catch (Exception exc)
+            {
+                return Content("{ \"name\":" + "\"" + exc.Message + "\" }");
+            }
+        }
+
+
+        private int CalculateWhenAccessTokenExpires()
+        {
+            //We get the access token just to be able to calculate when it expires
+            var accessToken = HttpContext.GetUserAccessTokenAsync().Result;
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.ReadJwtToken(accessToken);
+            var ValidFrom = token.ValidFrom;
+            var ValidTo = token.ValidTo;
+
+            var tokenExpiresInSec = (int)ValidTo.Subtract(DateTime.UtcNow).TotalSeconds;
+
+            return tokenExpiresInSec;
+        }

@@ -1,0 +1,1 @@
+openssl req -new -x509 -key rsa-private-key.pem -days 365 -subj "/CN=MyRSACert" -out rsa-cert.crt 

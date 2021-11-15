@@ -1,0 +1,18 @@
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            if (Request.Headers["accept"] == "application/json")
+            {
+                //Return JSON response
+                return Problem(title: "Server error",
+                               detail: "Please contact support");
+            }
+            else
+            {
+                return View(new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ??
+                            HttpContext.TraceIdentifier
+                });
+            }
+        }

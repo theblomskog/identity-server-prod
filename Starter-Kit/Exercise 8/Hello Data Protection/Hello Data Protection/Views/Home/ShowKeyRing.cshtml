@@ -1,0 +1,23 @@
+﻿@using System.Xml.Linq
+@model Dictionary<string, string>
+@{
+    ViewData["Title"] = "ShowKeyRing";
+}
+
+<h1>Key ring</h1>
+
+<table>
+    @foreach (var key in Model.Keys)
+    {
+        string keyname = key;
+        string keyvalue = Model[keyname];
+
+        <tr>
+            <td>
+                <h2>@keyname</h2>
+                <pre>@keyvalue</pre>
+            </td>
+        </tr>
+    }
+</table>
+

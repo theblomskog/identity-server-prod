@@ -1,0 +1,3 @@
+openssl ec -in p256-private.pem -pubout -out p256-public.pem
+openssl ec -in p384-private.pem -pubout -out p384-public.pem
+openssl ec -in p521-private.pem -pubout -out p521-public.pem

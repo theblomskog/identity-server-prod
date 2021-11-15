@@ -1,0 +1,21 @@
+For exercise 12.2
+**********************************
+
+                .AddInMemoryIdentityResources(IdentityResourceData.Resources())
+                .AddInMemoryApiResources(ApiResourceData.Resources())
+                .AddInMemoryApiScopes(ApiScopeData.Resources())
+                .AddInMemoryClients(ClientData.GetClients());
+
+
+For exercise 12.3
+**********************************
+
+
+
+                    .AddOperationalStore(options =>
+                    {
+                        options.ConfigureDbContext = b =>
+                        {
+                            options.ConfigureDbContext = c => c.UseSqlServer(_configuration["ConnectionString"]);
+                        };
+                    });

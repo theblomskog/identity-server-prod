@@ -1,0 +1,10 @@
+Add these package references to the IdentityServer.EntityFramework project file:
+********************************************************************************
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="Duende.IdentityServer" Version="5.2.3" />
+		<PackageReference Include="Duende.IdentityServer.Storage" Version="5.2.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>

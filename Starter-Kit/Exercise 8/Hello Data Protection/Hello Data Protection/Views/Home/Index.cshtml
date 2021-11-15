@@ -1,0 +1,67 @@
+﻿@using System.IO
+@model Dictionary<string, string>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+<h4>Login</h4>
+
+@if (User.Identity.IsAuthenticated)
+{
+    @:Hello
+
+    @(User?.Identity?.Name ?? "Unknown")
+    <a href="/home/logout" title="Manage">Logout</a>
+}
+else
+{
+    <a href="/home/login" title="Manage">Login</a>
+}
+<br />
+<br />
+
+<h4>Form post</h4>
+<a href="/home/showform">Show form page</a>
+<br />
+<br />
+
+
+<h4>Key ring operations</h4>
+<a href="/home/CreateNewKey">Create new key</a> (The key will expire in 10 seconds)
+<br />
+<a href="/home/RevokeAllKeys">Revoke all keys</a>
+<br />
+<br />
+
+<h4>Data keys default location</h4>
+Default:<br/> <b>%LOCALAPPDATA%\ASP.NET\DataProtection-Keys</b><br/><br/>
+CustomXmlPath:<br/> <b>@(Directory.GetCurrentDirectory())</b><br/>
+
+
+
+@if (Model != null)
+{
+    <br />
+    <br />
+    <h4>Key ring</h4>
+    <table>
+        @foreach (var key in Model.Keys)
+        {
+            string keyname = key;
+            string keyvalue = Model[keyname];
+
+            <tr>
+                <td>
+                    <h5>@keyname</h5>
+                    <pre>@keyvalue</pre>
+                </td>
+            </tr>
+        }
+    </table>
+}

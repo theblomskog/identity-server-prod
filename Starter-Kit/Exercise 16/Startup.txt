@@ -1,0 +1,6 @@
+### Add the following to the PaymentAPI Startup.ConfigureServices method:
+
+//Add the listener to the ETW system
+IdentityModelEventSource.Logger.LogLevel = System.Diagnostics.Tracing.EventLevel.Verbose;
+
+var listener = new IdentityModelEventListener();

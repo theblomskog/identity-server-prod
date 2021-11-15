@@ -1,0 +1,3 @@
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -aes256 -out p256-private.pem
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-384 -aes256 -out p384-private.pem
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-521 -aes256 -out p521-private.pem

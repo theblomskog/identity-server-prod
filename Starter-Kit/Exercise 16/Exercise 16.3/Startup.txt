@@ -1,0 +1,7 @@
+//Add this string to the PaymentAPI ConfigureServices method:
+//Make sure its placed before app.UseAuthentication();
+
+
+//Wait for IdentityServer to startup
+app.UseWaitForIdentityServer(new WaitForIdentityServerOptions() 
+    { Authority = _configuration["openid:authority"] });

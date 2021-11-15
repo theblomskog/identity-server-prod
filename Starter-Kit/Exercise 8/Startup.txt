@@ -1,0 +1,13 @@
+//Add the following to the Startup\ConfigureServices method in all three web projects:
+//************************************************************************************
+
+            if (_environment.EnvironmentName != "Offline")
+                services.AddDataProtectionWithSqlServer(_configuration);
+
+
+//****************************************************
+//Add it at the top of the ConfigureServices method!!! 
+
+Registering DataProtection service must be done before 
+registering the MVC service. 
+//****************************************************

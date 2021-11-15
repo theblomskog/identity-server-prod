@@ -1,0 +1,43 @@
+
+Unique username: student2
+
+GitHub secrets:
+REGISTRY_LOGIN_SERVER identityserveracr.azurecr.io
+REGISTRY_PASSWORD     QZVKUXknGKb8jIhJVXg0TY1ANWSprq/Z
+REGISTRY_USERNAME     IdentityServerACR
+USERNAME              student2
+
+HTTP Urls
+- http://student2-client.northeurope.azurecontainer.io
+- http://student2-identityservice.northeurope.azurecontainer.io
+- http://student2-paymentapi.northeurope.azurecontainer.io
+
+HTTPS Urls
+- https://student2-paymentapi.secure.nu
+- https://student2-identityservice.secure.nu
+- https://student2-client.secure.nu
+
+Container registry
+- URL:      identityserveracr.azurecr.io
+- UserName: IdentityServerACR
+- Password: QZVKUXknGKb8jIhJVXg0TY1ANWSprq/Z
+
+seq-logging server
+- URL:      http://tndata-logging2.northeurope.azurecontainer.io
+
+Azure Key Vault
+- Url:      https://identityserverkeyvault2.vault.azure.net
+- TenantId: 567d82a1-7f61-4da2-b955-d3244ea6e976
+
+Database details
+- Server:   tndata-identityserver-database2.database.windows.net
+- Database: IdentityServerDB
+- Username: dbuser
+- Password: tndata2021!!
+- ConnectionString: Server=tndata-identityserver-database2.database.windows.net;Database=IdentityServerDB;User Id=dbuser;Password=tndata2021!!;
+
+Azure portal login
+- Url:      https://portal.azure.com
+- Login:    student2@infotndata.onmicrosoft.com
+- Password: Edumentor126
+

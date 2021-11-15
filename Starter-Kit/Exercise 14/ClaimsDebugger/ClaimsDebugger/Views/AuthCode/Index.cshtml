@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Login</h1>
+
+
+<a href="@(ViewData["loginurl"])">Login to STS</a>
+
+
+<br />
+<br />
+Will login to this URL: @Html.Raw(ViewData["loginurl"].ToString().Replace("&", "<br>&amp;"))

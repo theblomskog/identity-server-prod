@@ -1,0 +1,47 @@
+ApiResourceData
+===============
+
+Add these two resources
+
+                new ApiResource()
+                {
+                    Name = "apiresource1",
+                    ApiSecrets = new List<Secret>() { new Secret("myapisecret".Sha256()) },
+
+                    Scopes = new List<string> { "apiscope1"},
+
+                    UserClaims = new List<string>
+                    {
+                        "claim_apiresource1",
+                    }
+                },
+                new ApiResource()
+                {
+                    Name = "apiresource2",
+                    ApiSecrets = new List<Secret>() { new Secret("myapisecret".Sha256()) },
+
+                    Scopes = new List<string> { "apiscope1"},
+
+                    UserClaims = new List<string>
+                    {
+                        "claim_apiresource2",
+                    }
+                }
+
+****************************************************************
+ApiScopeData
+****************************************************************
+
+Add the following Api Scope:
+
+    new ApiScope("apiscope1", new List<string>() { "claim_apiscope1" })
+
+
+****************************************************************
+IdentityResourceData
+****************************************************************
+
+Add the following IdentityResource to the existing list of identity resources:
+
+
+    new IdentityResource(name: "idresource1", userClaims: new string[] {"claim_idresource1"})

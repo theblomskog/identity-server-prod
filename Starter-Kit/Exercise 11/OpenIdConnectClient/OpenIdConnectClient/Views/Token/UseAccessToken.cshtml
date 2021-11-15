@@ -1,0 +1,103 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "UseAccessToken";
+}
+
+<h1>Using access token</h1>
+
+This page will try to access the UserInfo endpoint (using the acccess token) and display the user details.
+
+<br />
+<br />
+
+<table class="table">
+
+    <tr>
+        <td>Status</td>
+        <td>@ViewData["error"]</td>
+    </tr>
+
+    @if (ViewData["claims"] != null)
+    {
+
+
+        <tr>
+            <td>UserInfo claims</td>
+            <td>
+
+                <table class="table">
+
+                    @foreach (var claim in (IEnumerable<Claim>)ViewData["claims"])
+                    {
+                        <tr>
+                            <td>@claim.Type</td>
+                            <td>@claim.Value</td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    }
+
+    
+    <tr>
+        <td>
+            <b>ID Token</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Signing algorithm
+        </td>
+        <td>
+            @ViewData["id-alg"]
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Signing key id<br />
+        </td>
+        <td>
+            @ViewData["id-kid"]
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            JWT
+        </td>
+        <td id="id_token" style="width: 500px; word-wrap: break-word; display: inline-block; vertical-align: top;"> @ViewData["idToken"]</td>
+    </tr>
+    
+
+
+    <tr>
+        <td>
+            <b>Access Token</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Signing algorithm
+        </td>
+        <td>
+            @ViewData["at-alg"]
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Signing key id<br />
+        </td>
+        <td>
+            @ViewData["at-kid"]
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            JWT
+        </td>
+        <td id="at_token" style="width: 500px; word-wrap: break-word; display: inline-block; vertical-align: top;"> @ViewData["accessToken"]</td>
+    </tr>
+</table>

@@ -1,0 +1,3 @@
+openssl req -new -x509 -key p256-private.pem -days 365 -subj "/CN=MyP256Cert" -out p256-cert.crt
+openssl req -new -x509 -key p384-private.pem -days 365 -subj "/CN=MyP384Cert" -out p384-cert.crt
+openssl req -new -x509 -key p521-private.pem -days 365 -subj "/CN=MyP521Cert" -out p521-cert.crt

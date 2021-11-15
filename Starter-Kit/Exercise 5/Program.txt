@@ -1,0 +1,102 @@
+Do the following for each web project in the solution.
+
+*******************************************
+1) Fix the main method signature
+*******************************************
+
+replace the current main method signature:
+
+public static void Main(string[] args)
+
+So it becomes:
+		
+public static int Main(string[] args)
+
+
+//what is an exit code?
+//A 32-bit signed integer containing the exit code. The default value is 0 (zero), which indicates that the process completed successfully.
+//You can read more about it here:
+//https://docs.microsoft.com/en-us/dotnet/api/system.environment.exitcode
+
+
+*******************************************
+2) Add try/catch
+*******************************************
+
+Replace this line:
+
+            CreateHostBuilder(args).Build().Run();
+			
+With the following:
+
+            try
+            {
+                Log.Information("Starting web host for "  + _applicationName);
+                CreateHostBuilder(args)
+                    .ConfigureSerilog(_applicationName, options =>
+                    {
+                        ConfigureLogLevels(options);
+                    })
+                    .UseSerilog()
+                    .Build()
+                    .Run();
+                return 0;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); 
+                Log.Fatal(ex, "Host terminated unexpectedly");
+                return 1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+			
+Fix the missing using statements.
+
+		
+***********************************************************
+3) Add this ConfigureLogging method at the end of the class
+***********************************************************
+
+Add the following method at the end of your Program class in all three projects:
+
+        private static void ConfigureLogLevels(LoggerConfiguration options)
+        {
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            switch (environmentName)
+            {
+                case "Production":
+                    options.MinimumLevel.Override("System", LogEventLevel.Warning)
+                           .MinimumLevel.Override("IdentityServer4", LogEventLevel.Information)
+                           .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                           .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+                           .MinimumLevel.Override("Microsoft.AspNetCore.DataProtection", LogEventLevel.Debug)
+                           .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
+                           .MinimumLevel.Override("Microsoft.AspNetCore.Authorization", LogEventLevel.Information);
+                    break;
+                case "Offline":
+                     options.MinimumLevel.Override("System", LogEventLevel.Information)
+                            .MinimumLevel.Override("IdentityServer4", LogEventLevel.Debug)
+                            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                            .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+                            .MinimumLevel.Override("Microsoft.AspNetCore.DataProtection", LogEventLevel.Debug)
+                            .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
+                            .MinimumLevel.Override("Microsoft.AspNetCore.Authorization", LogEventLevel.Information);
+                    break;
+                    default:
+                    //Development
+                     options.MinimumLevel.Override("System", LogEventLevel.Warning)
+                            .MinimumLevel.Override("IdentityServer4", LogEventLevel.Debug)
+                            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                            .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+                            .MinimumLevel.Override("Microsoft.AspNetCore.DataProtection", LogEventLevel.Debug)
+                            .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
+                            .MinimumLevel.Override("Microsoft.AspNetCore.Authorization", LogEventLevel.Information);
+                    break;
+            }
+        }
+

@@ -1,0 +1,6 @@
+openssl pkcs12 -export -inkey rsa-private-key.pem -in rsa-cert.crt -out rsa.pfx
+
+openssl pkcs12 -export -inkey p256-private.pem -in p256-cert.crt -out p256.pfx
+openssl pkcs12 -export -inkey p384-private.pem -in p384-cert.crt -out p384.pfx
+openssl pkcs12 -export -inkey p521-private.pem -in p521-cert.crt -out p521.pfx
+

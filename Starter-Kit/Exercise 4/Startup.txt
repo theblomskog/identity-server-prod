@@ -1,0 +1,56 @@
+*********************************************************
+In the IdentityService Startup class, add the following:
+*********************************************************
+
+
+In the ConfigureServices method, add:
+
+            services.AddControllersWithViews();
+
+            var builder = services.AddIdentityServer(options =>
+            {
+
+            }).AddTestUsers(TestUsers.Users)
+                .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryClients(Config.Clients);
+
+            // not recommended for production - you need to store your key material somewhere secure
+            builder.AddDeveloperSigningCredential();
+
+
+
+Then fix the missing using statements.
+
+
+***********************************************************
+In the Configure method, replace the existing content with:
+***********************************************************
+
+
+            if (!env.IsProduction())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseSecurityHeaders();
+
+            app.UseRequestLocalization(new RequestLocalizationOptions().SetDefaultCulture("se-SE"));
+
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseIdentityServer();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+            });

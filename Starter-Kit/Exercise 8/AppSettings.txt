@@ -1,0 +1,10 @@
+Add the following to the appsettings.json file in all three web projects:
+(The EncryptionKeyUrl should end with "/keys/DataProtectionKey")
+
+
+  "ConnectionStrings": {
+    "ConnectionString": "[Your database connection string]" },
+  "DataProtection": {
+    "EncryptionKeyUrl": "[The Key identifier Url from the previous step]"
+  }
+

@@ -1,0 +1,40 @@
+1. Add the following to the AddCookie options:
+##############################################
+
+       options.Events.OnSigningOut = async e =>
+        {
+            // revoke refresh token on sign-out
+            await e.HttpContext.RevokeUserRefreshTokenAsync();
+        };
+		
+
+2. Add the following to the ConfigureServices method
+####################################################
+		
+		
+		
+		// adds user and client access token management
+		services.AddAccessTokenManagement(options => 
+		{
+			
+		})  
+			.ConfigureBackchannelHttpClient()
+				.AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(new[]
+				{
+					TimeSpan.FromSeconds(1),
+					TimeSpan.FromSeconds(2),
+					TimeSpan.FromSeconds(3)
+				}));¨
+				
+
+3. Replace the HttpClient definition with this one
+##################################################
+
+
+		// registers HTTP client that uses the managed user access token
+		services.AddUserAccessTokenClient("paymentapi", client =>
+		{
+			client.BaseAddress = new Uri(_configuration["paymentApiUrl"]);
+			client.Timeout = TimeSpan.FromSeconds(5);
+			client.DefaultRequestHeaders.Add("Accept", "application/json");
+		});

@@ -1,0 +1,91 @@
+﻿@using System.IdentityModel.Tokens.Jwt
+@using System.Text.RegularExpressions;
+@{
+    ViewData["Title"] = "Callback";
+
+    var accessToken = (JwtPayload)ViewData["accessTokenObj"];
+    var idToken = (ViewData["idTokenObj"] as JwtPayload) ?? new JwtPayload();
+
+}
+
+<h1>Callback</h1>
+Scopes requested: <b>@ViewData["scope"]</b>
+<br />
+<br />
+
+
+
+<table class="table w-100 small">
+    <tr>
+        <td style="display: inline-block; vertical-align: top; width: 50%; word-wrap: break-word;">
+            <b>ID-Token</b><br />
+            <pre>
+@foreach (var claim in idToken)
+{
+if (claim.Key.Contains("claim"))
+{
+@:<b>"@claim.Key.ToString()" : "@(claim.Value.ToString())",</b>
+}
+else
+{
+@:"@claim.Key.ToString()" : "@(claim.Value.ToString())",
+}
+}
+</pre>
+        </td>
+
+        <td style="display: inline-block; vertical-align: top; width: 50%; word-wrap: break-word;">
+            <b>Access-Token</b>
+            <br />
+            <pre>
+@if (accessToken != null)
+{
+    @foreach (var claim in accessToken)
+    {
+        if (claim.Key.Contains("claim"))
+        {
+@:<b>"@claim.Key.ToString()" : "@(claim.Value.ToString())",</b>
+            }
+        else
+        {
+@:"@claim.Key.ToString()" : "@(claim.Value.ToString())",
+        }
+    }
+}
+</pre>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td style="display: inline-block; vertical-align: top; width: 50%; word-wrap: break-word;">
+            <b>UserInfo</b><br />
+                           <pre>
+@{
+    string input = ViewData["userInfo"].ToString().Replace("&", "&amp;");
+    string UserInfoBolded = Regex.Replace(input, @"("".*?claim.*?"".*?"".*?"")", "<b>$1</b>");
+
+    
+}
+@Html.Raw(UserInfoBolded)
+</pre>
+        </td>
+
+        <td style="display: inline-block; vertical-align: top; width: 50%; word-wrap: break-word;">
+            <b>Token Introspection</b><br /> (Only callable from an ApiResource)
+                                      <pre>
+
+@{
+    string input2 = ViewData["tokenIntrospection"].ToString().Replace("&", "&amp;");
+    string tokenIntrospectionBolded = Regex.Replace(input2, @"("".*?claim.*?"".*?"".*?"")", "<b>$1</b>");
+}
+@Html.Raw(tokenIntrospectionBolded)
+</pre>
+
+        </td>
+
+
+    </tr>
+</table>
+
+

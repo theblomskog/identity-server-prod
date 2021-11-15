@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello Data Protection", "Hello Data Protection\Hello Data Protection.csproj", "{CBBA1A68-507B-42A3-A0DF-A485EAE29660}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBBA1A68-507B-42A3-A0DF-A485EAE29660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBBA1A68-507B-42A3-A0DF-A485EAE29660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBBA1A68-507B-42A3-A0DF-A485EAE29660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBBA1A68-507B-42A3-A0DF-A485EAE29660}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4862B0C2-F210-407A-815C-B162C3103B34}
+	EndGlobalSection
+EndGlobal
